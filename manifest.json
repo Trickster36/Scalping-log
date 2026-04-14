@@ -1,6 +1,6 @@
 {
-  "name": "TradeLog",
-  "short_name": "TradeLog",
+  "name": "Scalping",
+  "short_name": "Scalping",
   "description": "Strategy trading journal — process quality and results tracker",
   "start_url": "./Scalping-log/index.html",
   "display": "standalone",
