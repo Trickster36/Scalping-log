@@ -29,7 +29,7 @@ self.addEventListener('fetch', e => {
       })
       .catch(() => {
         // Offline — serve from cache
-        return caches.match(e.request).then(cached => cached || caches.match('./Scalping-log/index.html'));
+        return caches.match(e.request).then(cached => cached || caches.match('./index.html'));
       })
   );
 });
