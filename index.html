@@ -868,7 +868,7 @@ document.querySelectorAll('.tog').forEach(el => {
   });
 });
 
-// ── 4H CONFIRMATION SECTION ────────────────
+// ── 1H CONFIRMATION SECTION ────────────────
 function update4HConfirmSection(resetConfirm = true) {
   const trend   = sel.ctx4h_trend;
   const phase   = sel.ctx4h_phase;
@@ -1508,7 +1508,7 @@ function renderHistory() {
     const completedTrades = trades.filter(t => t.outcome === 'win' || t.outcome === 'loss');
     const types = curFilter === 'poitype'
       ? [{ key:'SR', label:'S/R' }, { key:'SD', label:'S/D' }]
-      : [{ key:'mss', label:'MSS' }, { key:'internal', label:'Internal H/L Break' }];
+      : [{ key:'mss', label:'1M H/L sweep' }, { key:'internal', label:'Internal H/L Break' }];
 
     const cards = types.map(({ key, label }) => {
       const group   = completedTrades.filter(t => (curFilter === 'poitype' ? t.poitype : t.signal) === key);
