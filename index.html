@@ -715,6 +715,7 @@ const firebaseConfig = {
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getDatabase(app);
+let dataLoaded = false;
 
 // ── STATE ──────────────────────────────────
 let trades  = [];
@@ -793,8 +794,14 @@ window.applyManualTime = function() {
     document.getElementById('time-picker').style.display = 'none';
   }
 };
-function saveTrades()   { if (uid) set(ref(db, uid + '/trades'),  trades.length  ? trades  : null); }
-function savePendingDB(){ if (uid) set(ref(db, uid + '/pending'), pending.length ? pending : null); }
+function saveTrades() { 
+  if (!uid || !dataLoaded) return;
+  set(ref(db, uid + '/trades'), trades);
+}
+  function savePendingDB(){ 
+  if (!uid || !dataLoaded) return;
+  set(ref(db, uid + '/pending'), pending);
+  }
 
 // ── SHOW SYNC STATUS ───────────────────────
 function setSyncStatus(msg, color) {
@@ -1776,6 +1783,7 @@ onAuthStateChanged(auth, user => {
     // Listen to trades in realtime
     onValue(ref(db, uid + '/trades'), snap => {
       trades = snap.val() ? Object.values(snap.val()) : [];
+      dataLoaded = true;
       renderDash();
       if (document.getElementById('page-history').classList.contains('active')) renderHistory();
       setSyncStatus('Synced ✓', 'var(--green)');
@@ -1785,6 +1793,7 @@ onAuthStateChanged(auth, user => {
     // Listen to pending in realtime
     onValue(ref(db, uid + '/pending'), snap => {
       pending = snap.val() ? Object.values(snap.val()) : [];
+      dataLoaded = true;
       renderDash();
     });
 
